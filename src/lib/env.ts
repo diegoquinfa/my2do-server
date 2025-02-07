@@ -10,7 +10,8 @@ const envSchema = z.object({
       z.literal('testing')
     ])
     .default('development'),
-  DB_URI: z.string()
+  DB_URI: z.string(),
+  DB_NAME: z.string()
 })
 
 export const ENV = envSchema.parse(process.env)

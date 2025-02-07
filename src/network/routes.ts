@@ -1,3 +1,4 @@
+import { taskRoutes } from '@/api/tasks/infrastructure/routes'
 import { Router, Response } from 'express'
 
 export const api = () => {
@@ -6,6 +7,8 @@ export const api = () => {
   router.use('/example', (_, res: Response) => {
     res.json({ hello: 'world' })
   })
+
+  router.use('/task', taskRoutes)
 
   return router
 }
