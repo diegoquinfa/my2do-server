@@ -1,6 +1,6 @@
 import type { Express } from 'express'
-import { PORT } from './env'
+import { ENV } from './env'
 
 export const bootstrap = (app: Express) => {
-  app.listen(PORT, () => console.log('Listening'))
+  app.listen(ENV.PORT, () => console.log('Listening'))
 }
