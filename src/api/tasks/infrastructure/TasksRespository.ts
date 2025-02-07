@@ -1,5 +1,5 @@
-import { ITaskRespository } from '@/repository/interfaces/ITasksRepository'
 import { connectDataBase } from '@/repository/mongo'
+import { ITaskRespository } from '../domain/ITasksRepository'
 import { Task } from '../domain/Task'
 
 export class TasksRepository implements ITaskRespository {
