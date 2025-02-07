@@ -39,36 +39,39 @@ MyTodo is a task management web application designed to improve user organizatio
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/user/MyTodo.git
+   git clone https://github.com/diegoquinfa/mytodo-server.git
    cd MyTodo
    ```
 2. Install dependencies:
    ```bash
-   npm install
+   pnpm install
    ```
 3. Configure environment variables:
-   Create a `.env` file in the project root and define the necessary variables such as `MONGO_URI`, `JWT_SECRET`, etc.
+   Create a `.env` file in the project root and define the necessary variables, etc.
+   ```bash
+   cp .env.example .env
+   ```
 4. Start the server:
    ```bash
-   npm run dev
+   pnpm dev
    ```
 
 ## API Endpoints
 
-| Method | Endpoint             | Description             |
-| ------ | -------------------- | ----------------------- |
-| POST   | `/api/auth/register` | User registration       |
-| POST   | `/api/auth/login`    | User login              |
-| POST   | `/api/auth/logout`   | User logout             |
-| POST   | `/api/auth/recover`  | Password recovery       |
-| GET    | `/api/tasks`         | Retrieve user tasks     |
-| POST   | `/api/tasks`         | Create a new task       |
-| PUT    | `/api/tasks/:id`     | Update task             |
-| DELETE | `/api/tasks/:id`     | Delete task             |
-| GET    | `/api/groups`        | Retrieve task groups    |
-| POST   | `/api/groups`        | Create a new task group |
-| PUT    | `/api/groups/:id`    | Update task group       |
-| DELETE | `/api/groups/:id`    | Delete task group       |
+| Method | Endpoint                | Description             |
+| ------ | ----------------------- | ----------------------- |
+| POST   | `/api/v1/auth/register` | User registration       |
+| POST   | `/api/v1/auth/login`    | User login              |
+| POST   | `/api/v1/auth/logout`   | User logout             |
+| POST   | `/api/v1/auth/recover`  | Password recovery       |
+| GET    | `/api/v1/tasks`         | Retrieve user tasks     |
+| POST   | `/api/v1/tasks`         | Create a new task       |
+| PUT    | `/api/v1/tasks/:id`     | Update task             |
+| DELETE | `/api/v1/tasks/:id`     | Delete task             |
+| GET    | `/api/v1/groups`        | Retrieve task groups    |
+| POST   | `/api/v1/groups`        | Create a new task group |
+| PUT    | `/api/v1/groups/:id`    | Update task group       |
+| DELETE | `/api/v1/groups/:id`    | Delete task group       |
 
 ## Project Architecture
 
@@ -79,10 +82,15 @@ Project structure:
 ```
 MyTodo/
 │-- src/
-│   ├── application/
-│   ├── domain/
-│   ├── infrastructure/
-│   ├── presentation/
+│   ├── api/
+│   │   └── tasks/
+│   │       ├── application/
+│   │       ├── domain/
+│   │       └── infrastructure/
+│   ├── lib/
+│   ├── middlewares/
+│   ├── network/
+│   └── repository/
 │-- tests/
 │-- .env.example
 │-- package.json
