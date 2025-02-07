@@ -2,7 +2,7 @@ import express from 'express'
 import helmet from 'helmet'
 import cors from 'cors'
 import { api } from '@/network/routes'
-import { bootstrap } from './lib/bootstrap'
+import { bootstrap } from '@/lib/bootstrap'
 
 const app = express()
 
