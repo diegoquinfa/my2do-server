@@ -1,10 +1,11 @@
-import { Router } from 'express'
-import { holaRouter } from '@/api/hola'
+import { Router, Response } from 'express'
 
 export const api = () => {
   const router = Router()
 
-  router.use('/hola', holaRouter)
+  router.use('/example', (_, res: Response) => {
+    res.json({ hello: 'world' })
+  })
 
   return router
 }
