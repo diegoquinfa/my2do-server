@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { holaRouter } from '../api/hola/hola.network.js'
+import { holaRouter } from '@/api/hola'
 
 export const api = () => {
   const router = Router()

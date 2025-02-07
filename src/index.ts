@@ -1,8 +1,8 @@
 import express from 'express'
 import helmet from 'helmet'
 import cors from 'cors'
-import { api } from './network/routes.js'
-import { PORT } from './lib/env.js'
+import { api } from '@/network/routes'
+import { PORT } from '@/lib/env'
 
 const app = express()
 
@@ -13,4 +13,4 @@ app.use(cors())
 
 app.use('/api/v1', api())
 
-app.listen(PORT, () => console.log('Server run on http://localhost:3000'))
+app.listen(PORT, () => console.log('Server run on http://localhost:' + PORT))
