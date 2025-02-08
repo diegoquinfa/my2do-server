@@ -1,4 +1,4 @@
-import { connectDataBase } from '@/repository/mongo'
+import { connectDataBase } from '@/database/mongo'
 import { ITaskRespository } from '../domain/ITasksRepository'
 import { Task } from '../domain/Task'
 
