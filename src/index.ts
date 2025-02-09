@@ -3,7 +3,7 @@ import helmet from 'helmet'
 import cors from 'cors'
 import { api } from './network/routes'
 import { bootstrap } from './lib/bootstrap'
-import { errorHanler } from './middlewares/errorMiddleware'
+import { errorMiddleware } from './middlewares/errorMiddleware'
 import { loggerMiddleware } from './middlewares/loggerMiddleware'
 
 const app = express()
@@ -16,6 +16,6 @@ app.use(loggerMiddleware)
 
 app.use('/api/v1', api())
 
-app.use(errorHanler)
+app.use(errorMiddleware)
 
 bootstrap(app)
