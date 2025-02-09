@@ -16,11 +16,15 @@ export class Database {
   public static async connect(): Promise<Db> {
     if (this.db) return this.db
 
-    this.client = new MongoClient(uri)
-    await this.client.connect()
-    this.db = this.client.db(dbName)
-
-    console.log(`Successfully connected to database: ${dbName}`)
+    try {
+      this.client = new MongoClient(uri)
+      await this.client.connect()
+      this.db = this.client.db(dbName)
+      console.log(`Successfully connected to database: ${dbName}`)
+    } catch (err) {
+      console.error('Database connection failed:', err)
+      throw err
+    }
 
     return this.db
   }
