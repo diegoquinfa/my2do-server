@@ -1,3 +1,5 @@
+import { ValidationError } from '@/shared/application/errors/ValidationError'
+import { DatabaseError } from '@/shared/application/errors/DatabaseError'
 import { TaskSchema } from '../domain/Task'
 import { TasksRepository } from '../infrastructure/TasksRespository'
 
@@ -8,14 +10,14 @@ export class TaskCreate {
     let task = TaskSchema.safeParse(taskData)
 
     if (!task.success) {
-      throw task.error
+      throw new ValidationError(task.error.flatten())
     }
 
     try {
       await this.tasksRepository.save(task.data)
     } catch (err) {
       if (err instanceof Error) {
-        throw new Error('Database: ' + err)
+        throw new DatabaseError(err)
       }
     }
   }
