@@ -3,9 +3,6 @@ import { ENV } from '@/lib/env'
 import { logger } from '@/lib/logger'
 import { Collection, Db, MongoClient } from 'mongodb'
 
-const uri = ENV.DB_URI
-const dbName = ENV.DB_NAME
-
 export class Database {
   private static db: Db
   private static client: MongoClient
@@ -18,10 +15,10 @@ export class Database {
     if (this.db) return this.db
 
     try {
-      this.client = new MongoClient(uri)
+      this.client = new MongoClient(ENV.DB_URI)
       await this.client.connect()
-      this.db = this.client.db(dbName)
-      console.log(`Successfully connected to database: ${dbName}`)
+      this.db = this.client.db(ENV.DB_NAME)
+      console.log(`Successfully connected to database: ${ENV.DB_NAME}`)
     } catch (err) {
       if (err instanceof Error)
         logger.fatal('Database connection failed: ' + err.name)
