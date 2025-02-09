@@ -6,11 +6,11 @@ export const errorHanler = (
   res: Response,
   _: NextFunction // eslint-disable-line
 ) => {
-  console.log(req.path)
+  res.err = err
 
-  res.status(500).json({
-    error: 'something was wrong'
-  })
-
-  console.log(err)
+  if (req.path?.startsWith('/api')) {
+    res.status(500).json({
+      error: 'something was wrong'
+    })
+  }
 }

@@ -1,5 +1,5 @@
-import { IncomingMessage, ServerResponse } from 'node:http'
 import pino, { Options } from 'pino-http'
+import { IncomingMessage, ServerResponse } from 'node:http'
 import { ENV } from '@/lib/env'
 
 const pinoConfig: Options = {
@@ -17,7 +17,7 @@ if (ENV.NODE_ENV !== 'production') {
     req: IncomingMessage,
     res: ServerResponse
   ) => {
-    return `✔ ${req.method} ${res.statusCode} - ${res.getHeader('content-length') || 0} bytes`
+    return `✔  ${req.url} ${req.method} ${res.statusCode} - ${res.getHeader('content-length') || 0} bytes`
   }
 
   pinoConfig.customErrorMessage = (
@@ -25,8 +25,8 @@ if (ENV.NODE_ENV !== 'production') {
     res: ServerResponse,
     err?: Error
   ) => {
-    return `✖ ERROR ${req.method} ${res.statusCode} - ${err?.message || 'Unknown error'}`
+    return `✖  ERROR ${req.url} ${req.method} ${res.statusCode} - ${err?.message || 'Unknown error'}`
   }
 }
 
-export const logger = pino(pinoConfig)
+export const loggerMiddleware = pino(pinoConfig)

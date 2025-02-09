@@ -1,4 +1,4 @@
-import { taskRoutes } from '@/api/tasks/infrastructure/routes'
+import { taskRoutes } from '@/api/tasks/infrastructure/tasksRoutes'
 import { Router } from 'express'
 
 export const api = () => {

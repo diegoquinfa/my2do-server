@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response, Router } from 'express'
-import { taskContainer } from './taskContainer'
+import { taskContainer } from './tasksContainer'
 
 const taskRoutes = Router()
 
@@ -11,8 +11,9 @@ taskRoutes.post(
     try {
       await taskContainer.createTask.run(task)
     } catch (err) {
-      res.log.error(err)
-      return next(err)
+      if (err instanceof Error) {
+        return next(err)
+      }
     }
 
     res.status(201).send('Creado')
