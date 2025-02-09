@@ -80,21 +80,37 @@ MyTodo's backend follows **Hexagonal Architecture**, **Screaming Architecture**,
 Project structure:
 
 ```
-MyTodo/
-│-- src/
-│   ├── api/
-│   │   └── tasks/
-│   │       ├── application/
-│   │       ├── domain/
-│   │       └── infrastructure/
-│   ├── lib/
-│   ├── middlewares/
-│   ├── network/
-│   └── repository/
-│-- tests/
-│-- .env.example
-│-- package.json
-│-- README.md
+mytodo-server
+├── src
+│   ├── api
+│   │   └── tasks
+│   │       ├── application
+│   │       │   └── createTask.ts
+│   │       ├── domain
+│   │       │   ├── ITasksRepository.ts
+│   │       │   └── Task.ts
+│   │       └── infrastructure
+│   │           ├── TasksRespository.ts
+│   │           └── routes.ts
+│   ├── database
+│   │   └── mongo.ts
+│   ├── index.ts
+│   ├── lib
+│   │   ├── bootstrap.ts
+│   │   ├── env.ts
+│   │   └── utils.ts
+│   ├── middlewares
+│   │   ├── errorHandler.ts
+│   │   └── logger.ts
+│   └── network
+│       ├── response.ts
+│       └── routes.ts
+└── tests
+    ├── api
+    │   └── tasks
+    │       └── application
+    │           └── createTask.test.ts
+    └── index.test.ts
 ```
 
 ## Contributing
