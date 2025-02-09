@@ -8,11 +8,9 @@ export const errorHanler = (
 ) => {
   console.log(req.path)
 
-  if (req.path.startsWith('/api')) {
-    res.status(500).json({
-      error: 'something was wrong'
-    })
-  }
+  res.status(500).json({
+    error: 'something was wrong'
+  })
 
   console.log(err)
 }

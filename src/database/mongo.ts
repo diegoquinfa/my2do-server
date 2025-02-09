@@ -1,20 +1,37 @@
+import { Task } from '@/api/tasks/domain/Task'
 import { ENV } from '@/lib/env'
-import { Db, MongoClient } from 'mongodb'
+import { Collection, Db, MongoClient } from 'mongodb'
 
 const uri = ENV.DB_URI
 const dbName = ENV.DB_NAME
 
-let client: MongoClient | null = null
-let db: Db | null = null
+export class Database {
+  private static db: Db
+  private static client: MongoClient
 
-export const connectDataBase = async (): Promise<Db> => {
-  if (db) return db
+  constructor() {
+    throw new Error('Dont use the constructor')
+  }
 
-  client = new MongoClient(uri)
-  await client.connect()
-  db = client.db(dbName)
+  public static async connect(): Promise<Db> {
+    if (this.db) return this.db
 
-  console.log(`Successfully connected to database: ${dbName}`)
+    this.client = new MongoClient(uri)
+    await this.client.connect()
+    this.db = this.client.db(dbName)
 
-  return db
+    console.log(`Successfully connected to database: ${dbName}`)
+
+    return this.db
+  }
+
+  public static async collection<T extends Task>(
+    name: string
+  ): Promise<Collection<T>> {
+    if (!this.db) {
+      await this.connect()
+    }
+
+    return this.db.collection<T>(name)
+  }
 }

@@ -1,18 +1,22 @@
-import { Response, Router } from 'express'
-import { createTask } from '../application/createTask'
-import { TasksRepository } from './TasksRespository'
+import { NextFunction, Request, Response, Router } from 'express'
+import { taskContainer } from './taskContainer'
 
 const taskRoutes = Router()
 
-taskRoutes.get('/', (_, res: Response) => {
-  const task = {
-    title: 'hola',
-    description: 'mundo'
+taskRoutes.post(
+  '/',
+  async (req: Request, res: Response, next: NextFunction) => {
+    const task = req.body
+
+    try {
+      await taskContainer.createTask.run(task)
+    } catch (err) {
+      res.log.error(err)
+      return next(err)
+    }
+
+    res.status(201).send('Creado')
   }
-
-  createTask(task, new TasksRepository())
-
-  res.status(201).send('Creado')
-})
+)
 
 export { taskRoutes }
