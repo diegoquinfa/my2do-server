@@ -1,6 +1,5 @@
 import { Task } from '@/api/tasks/domain/Task'
 import { ENV } from '@/lib/env'
-import { logger } from '@/lib/logger'
 import { Collection, Db, MongoClient } from 'mongodb'
 
 export class Database {
@@ -21,7 +20,7 @@ export class Database {
       console.log(`Successfully connected to database: ${ENV.DB_NAME}`)
     } catch (err) {
       if (err instanceof Error)
-        logger.fatal('Database connection failed: ' + err.name)
+        console.log('Database connection failed: ' + err.name)
       throw err
     }
 
