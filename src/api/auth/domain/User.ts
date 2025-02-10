@@ -36,7 +36,7 @@ export const userSchema = z.object({
   _id: z.string().optional(),
   name: userNameSchema,
   email: userEmailSchema,
-  password: userPasswordSchema,
+  password: z.string(),
   createdAt: z.date()
 })
 
