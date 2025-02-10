@@ -13,18 +13,11 @@ const pinoConfig: Options = {
 if (ENV.NODE_ENV !== 'production') {
   pinoConfig.transport = { target: 'pino-pretty' }
 
-  pinoConfig.customSuccessMessage = (
-    req: IncomingMessage,
-    res: ServerResponse
-  ) => {
+  pinoConfig.customSuccessMessage = (req: IncomingMessage, res: ServerResponse) => {
     return `✔  ${req.url} ${req.method} ${res.statusCode} - ${res.getHeader('content-length') || 0} bytes`
   }
 
-  pinoConfig.customErrorMessage = (
-    req: IncomingMessage,
-    res: ServerResponse,
-    err?: Error
-  ) => {
+  pinoConfig.customErrorMessage = (req: IncomingMessage, res: ServerResponse, err?: Error) => {
     return `✖  ERROR ${req.url} ${req.method} ${res.statusCode} - ${err?.message || 'Unknown error'}`
   }
 }

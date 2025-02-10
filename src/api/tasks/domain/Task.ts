@@ -9,8 +9,7 @@ export const TaskSchema = z.object({
   repeat: z
     .enum(['anytime', 'daily', 'weekly', 'yearly'], {
       errorMap: () => ({
-        message:
-          "The value of 'repeat' must be: anytime, daily, weekly, or yearly."
+        message: "The value of 'repeat' must be: anytime, daily, weekly, or yearly."
       })
     })
     .default('anytime')

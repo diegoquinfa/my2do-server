@@ -20,17 +20,14 @@ export class Database {
       this.db = this.client.db(ENV.DB_NAME)
       console.log(`Successfully connected to database: ${ENV.DB_NAME}`)
     } catch (err) {
-      if (err instanceof Error)
-        console.log('Database connection failed: ' + err.name)
+      if (err instanceof Error) console.log('Database connection failed: ' + err.name)
       throw err
     }
 
     return this.db
   }
 
-  public static async collection<T extends Task | User>(
-    name: string
-  ): Promise<Collection<T>> {
+  public static async collection<T extends Task | User>(name: string): Promise<Collection<T>> {
     if (!this.db) {
       await this.connect()
     }

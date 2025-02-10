@@ -15,12 +15,7 @@ export const success = (
   res.status(status).json(response)
 }
 
-export const error = (
-  res: Response,
-  message: string,
-  status: number = 500,
-  details?: unknown
-) => {
+export const error = (res: Response, message: string, status: number = 500, details?: unknown) => {
   const response = {
     success: false,
     message,
