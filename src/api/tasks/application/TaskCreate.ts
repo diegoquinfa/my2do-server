@@ -4,10 +4,14 @@ import { TaskSchema } from '../domain/Task'
 import { TasksRepository } from '../infrastructure/TasksRespository'
 
 export class TaskCreate {
-  constructor(private readonly tasksRepository: TasksRepository) {}
+  private readonly tasksRepository: TasksRepository
+
+  constructor(tasksRepository: TasksRepository) {
+    this.tasksRepository = tasksRepository
+  }
 
   public async run(taskData: unknown): Promise<void> {
-    let task = TaskSchema.safeParse(taskData)
+    const task = TaskSchema.safeParse(taskData)
 
     if (!task.success) {
       throw new ValidationError(task.error.flatten())
