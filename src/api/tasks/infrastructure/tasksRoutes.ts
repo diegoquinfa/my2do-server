@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response, Router } from 'express'
 import { taskContainer } from './tasksContainer'
+import { success } from '@/network/response'
 
 const taskRoutes = Router()
 
@@ -16,7 +17,7 @@ taskRoutes.post(
       }
     }
 
-    res.status(201).send('Creado')
+    success(res, null, 'Success', 201)
   }
 )
 
