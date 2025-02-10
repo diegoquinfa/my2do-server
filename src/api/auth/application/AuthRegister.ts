@@ -1,3 +1,4 @@
+import { hash, genSalt } from 'bcrypt-ts'
 import { ValidationError } from '@/shared/application/errors/ValidationError'
 import { DatabaseError } from '@/shared/application/errors/DatabaseError'
 import { IAuthRepository } from '../domain/IAuthRepository'
@@ -16,12 +17,17 @@ export class AuthRegister {
       throw new ValidationError(userRegister.error.flatten())
     }
 
-    if (await this.repository.existsEmail(userRegister.data.email)) {
+    const register = userRegister.data
+
+    if (await this.repository.existsEmail(register.email)) {
       throw new ValidationError('Email already exists')
     }
 
+    const hashedPassword = await hash(register.password, await genSalt(10))
+
     const newUser = userSchema.safeParse({
-      ...userRegister.data,
+      ...register,
+      password: hashedPassword,
       createdAt: new Date()
     })
 
