@@ -11,14 +11,12 @@ tasksRoutes.post(
 
     try {
       await taskContainer.createTask.run(task)
+      success(res, 'Success', 201)
     } catch (err) {
       if (err instanceof Error) {
         next(err)
-        return
       }
     }
-
-    success(res, 'Success', 201)
   }
 )
 

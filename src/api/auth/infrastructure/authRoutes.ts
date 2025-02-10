@@ -11,14 +11,12 @@ authRoutes.post(
 
     try {
       await authContainer.register.run(register)
+      success(res, 'User successfuly created', 201)
     } catch (err) {
       if (err instanceof Error) {
         next(err)
-        return
       }
     }
-
-    success(res, 'User successfuly created', 201)
   }
 )
 
