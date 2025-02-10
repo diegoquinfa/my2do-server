@@ -4,7 +4,7 @@ import { Router } from 'express'
 export const api = () => {
   const router = Router()
 
-  router.use('/task', taskRoutes)
+  router.use('/tasks', taskRoutes)
 
   return router
 }
