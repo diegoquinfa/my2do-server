@@ -16,6 +16,10 @@ export class AuthRegister {
       throw new ValidationError(userRegister.error.flatten())
     }
 
+    if (await this.repository.existsEmail(userRegister.data.email)) {
+      throw new ValidationError('Email already exists')
+    }
+
     const newUser = userSchema.safeParse({
       ...userRegister.data,
       createdAt: new Date()
