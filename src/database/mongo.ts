@@ -1,4 +1,5 @@
 import { Task } from '@/api/tasks/domain/Task'
+import { User } from '@/api/users/domain/User'
 import { ENV } from '@/lib/env'
 import { Collection, Db, MongoClient } from 'mongodb'
 
@@ -27,7 +28,7 @@ export class Database {
     return this.db
   }
 
-  public static async collection<T extends Task>(
+  public static async collection<T extends Task | User>(
     name: string
   ): Promise<Collection<T>> {
     if (!this.db) {

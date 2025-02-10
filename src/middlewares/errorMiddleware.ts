@@ -7,12 +7,12 @@ export const errorMiddleware: ErrorRequestHandler = (err, req, res, next) => {
   res.err = err
   if (req.path?.startsWith('/api')) {
     if (err instanceof ValidationError) {
-      error(res, err.message, err.details, err.statusCode)
+      error(res, err.message, err.statusCode, err.details)
       return
     }
 
     if (err instanceof DatabaseError) {
-      error(res, 'Service unavailable', null, err.statusCode)
+      error(res, 'Service unavailable', err.statusCode)
       return
     }
 

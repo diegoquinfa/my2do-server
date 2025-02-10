@@ -2,9 +2,9 @@ import { Response } from 'express'
 
 export const success = (
   res: Response,
-  data: unknown,
   message: string,
-  status = 200
+  status: number = 200,
+  data: unknown = null
 ) => {
   const response = {
     success: true,
@@ -18,8 +18,8 @@ export const success = (
 export const error = (
   res: Response,
   message: string,
-  details?: unknown,
-  status = 500
+  status: number = 500,
+  details?: unknown
 ) => {
   const response = {
     success: false,

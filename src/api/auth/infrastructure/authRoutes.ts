@@ -1,16 +1,16 @@
 import { NextFunction, Request, Response, Router } from 'express'
-import { taskContainer } from './tasksContainer'
+import { authContainer } from './authContainer'
 import { success } from '@/network/response'
 
-const tasksRoutes = Router()
+const authRoutes = Router()
 
-tasksRoutes.post(
-  '/',
+authRoutes.post(
+  '/register',
   async (req: Request, res: Response, next: NextFunction) => {
-    const task = req.body
+    const register = req.body
 
     try {
-      await taskContainer.createTask.run(task)
+      await authContainer.register.run(register)
     } catch (err) {
       if (err instanceof Error) {
         next(err)
@@ -18,8 +18,8 @@ tasksRoutes.post(
       }
     }
 
-    success(res, 'Success', 201)
+    success(res, 'User successfuly created', 201)
   }
 )
 
-export { tasksRoutes }
+export { authRoutes }
