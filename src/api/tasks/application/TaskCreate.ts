@@ -1,12 +1,12 @@
 import { ValidationError } from '@/shared/application/errors/ValidationError'
 import { DatabaseError } from '@/shared/application/errors/DatabaseError'
 import { TaskSchema } from '../domain/Task'
-import { TasksRepository } from '../infrastructure/TasksRespository'
+import { ITasksRepository } from '../domain/ITasksRepository'
 
 export class TaskCreate {
-  private readonly tasksRepository: TasksRepository
+  private readonly tasksRepository: ITasksRepository
 
-  constructor(tasksRepository: TasksRepository) {
+  constructor(tasksRepository: ITasksRepository) {
     this.tasksRepository = tasksRepository
   }
 

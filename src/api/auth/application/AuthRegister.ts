@@ -1,11 +1,11 @@
 import { ValidationError } from '@/shared/application/errors/ValidationError'
-import { userRegisterSchema, userSchema } from '../domain/User'
-import { AuthRepository } from '../infrastructure/AuthRepository'
 import { DatabaseError } from '@/shared/application/errors/DatabaseError'
+import { IAuthRepository } from '../domain/IAuthRepository'
+import { userRegisterSchema, userSchema } from '../domain/User'
 
 export class AuthRegister {
-  private readonly repository: AuthRepository
-  constructor(repository: AuthRepository) {
+  private readonly repository: IAuthRepository
+  constructor(repository: IAuthRepository) {
     this.repository = repository
   }
 
