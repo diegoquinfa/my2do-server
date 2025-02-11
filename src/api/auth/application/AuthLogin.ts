@@ -2,7 +2,8 @@ import jwt from 'jsonwebtoken'
 import { ValidationError } from '@/shared/application/errors/ValidationError'
 import { authLoginSchema } from '../domain/AuthLogin'
 import { IAuthRepository } from '../domain/IAuthRepository'
-import { AuthLoginResponse, authLoginResponseSchema } from '../domain/AuthLoginResponse'
+import { AuthLoginResponse } from '../domain/AuthLoginResponse'
+import { ENV } from '@/lib/env'
 
 export class AuthLogin {
   private readonly repository: IAuthRepository
@@ -23,18 +24,15 @@ export class AuthLogin {
       throw new ValidationError({ message: 'User not found' })
     }
 
-    const token = jwt.sign({ user }, 'shhhhh')
+    const token = jwt.sign({ name: user.name, email: user.email }, ENV.JWT_SECRET)
 
-    const authResponse = authLoginResponseSchema.safeParse({
-      ...user,
-      jwt: token,
-      _id: user._id?.toString()
-    })
-
-    if (authResponse.error) {
-      throw new ValidationError('ni idea')
+    const authResponse: AuthLoginResponse = {
+      _id: user._id?.toString(),
+      name: user.name,
+      email: user.email,
+      jwt: token
     }
 
-    return authResponse.data
+    return authResponse
   }
 }

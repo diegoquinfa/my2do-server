@@ -7,7 +7,8 @@ const envSchema = z.object({
     .union([z.literal('development'), z.literal('production'), z.literal('testing')])
     .default('development'),
   DB_URI: z.string(),
-  DB_NAME: z.string()
+  DB_NAME: z.string(),
+  JWT_SECRET: z.string()
 })
 
 export const ENV = envSchema.parse(process.env)
