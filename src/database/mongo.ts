@@ -1,7 +1,7 @@
+import { Collection, Db, MongoClient } from 'mongodb'
 import { Task } from '@/api/tasks/domain/Task'
 import { User } from '@/api/auth/domain/User'
 import { ENV } from '@/lib/env'
-import { Collection, Db, MongoClient } from 'mongodb'
 
 export class Database {
   private static db: Db
