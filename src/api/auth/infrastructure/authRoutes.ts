@@ -9,7 +9,20 @@ authRoutes.post('/register', async (req: Request, res: Response, next: NextFunct
 
   try {
     await authContainer.register.run(register)
-    success(res, 'User successfuly created', 201)
+    success(res, 'User successfully created', 201)
+  } catch (err) {
+    if (err instanceof Error) {
+      next(err)
+    }
+  }
+})
+
+authRoutes.post('/login', async (req: Request, res: Response, next: NextFunction) => {
+  const login = req.body
+
+  try {
+    const loginResponse = await authContainer.login.run(login)
+    success(res, 'User successfully logged', 200, loginResponse)
   } catch (err) {
     if (err instanceof Error) {
       next(err)
