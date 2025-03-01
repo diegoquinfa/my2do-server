@@ -1,4 +1,4 @@
-export class ApplicationError extends Error {
+export abstract class ResponseError extends Error {
   public readonly statusCode: number
 
   constructor(message: string, statusCode: number) {

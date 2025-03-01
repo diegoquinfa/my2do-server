@@ -1,22 +1,24 @@
 import { ErrorRequestHandler } from 'express'
-import { DatabaseError } from '@/shared/application/errors/DatabaseError'
+import { DatabaseError } from '@/shared/infrastructure/errors/DatabaseError'
 import { ValidationError } from '@/shared/application/errors/ValidationError'
-import { error } from '@/network/response'
+import { response } from '@/network/response'
 
 export const errorMiddleware: ErrorRequestHandler = (err, req, res, next) => {
   res.err = err
   if (req.path?.startsWith('/api')) {
     if (err instanceof ValidationError) {
-      error(res, err.message, err.statusCode, err.details)
+      response.error(res, err.message, err.statusCode, err.details)
       return
     }
 
     if (err instanceof DatabaseError) {
-      error(res, 'Service unavailable', err.statusCode)
+      response.error(res, 'Service unavailable', err.statusCode)
       return
     }
 
-    error(res, 'Something went wrong')
+    // TODO: - Add more cases
+
+    response.error(res, 'Something went wrong')
   }
 
   next()

@@ -1,12 +1,12 @@
 import { hash, genSalt } from 'bcrypt-ts'
 import { ValidationError } from '@/shared/application/errors/ValidationError'
-import { DatabaseError } from '@/shared/application/errors/DatabaseError'
 import { IAuthRepository } from '../domain/IAuthRepository'
 import { userSchema } from '../domain/User'
 import { authRegisterSchema } from '../domain/AuthRegister'
 
 export class AuthRegister {
   private readonly repository: IAuthRepository
+
   constructor(repository: IAuthRepository) {
     this.repository = repository
   }
@@ -36,12 +36,6 @@ export class AuthRegister {
       throw new ValidationError(newUser.error.flatten())
     }
 
-    try {
-      await this.repository.register(newUser.data)
-    } catch (err) {
-      if (err instanceof Error) {
-        throw new DatabaseError(err)
-      }
-    }
+    await this.repository.register(newUser.data)
   }
 }

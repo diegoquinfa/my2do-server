@@ -7,6 +7,7 @@ import { ENV } from '@/lib/env'
 
 export class AuthLogin {
   private readonly repository: IAuthRepository
+
   constructor(repository: IAuthRepository) {
     this.repository = repository
   }
@@ -21,7 +22,7 @@ export class AuthLogin {
     const user = await this.repository.getUserByEmail(authLogin.data.email)
 
     if (!user) {
-      throw new ValidationError({ message: 'User not found' })
+      throw new ValidationError({ message: "User or Password don't match" })
     }
 
     const token = jwt.sign({ name: user.name, email: user.email }, ENV.JWT_SECRET)

@@ -18,12 +18,12 @@ export class Database {
       this.client = new MongoClient(ENV.DB_URI)
       await this.client.connect()
       this.db = this.client.db(ENV.DB_NAME)
-      console.log(`Successfully connected to database: ${ENV.DB_NAME}`)
     } catch (err) {
       if (err instanceof Error) console.log('Database connection failed: ' + err.name)
       throw err
     }
 
+    console.log(`Successfully connected to database: ${ENV.DB_NAME}`)
     return this.db
   }
 

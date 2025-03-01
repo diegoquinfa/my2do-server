@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response, Router } from 'express'
 import { taskContainer } from './tasksContainer'
-import { success } from '@/network/response'
+import { response } from '@/network/response'
 
 const tasksRoutes = Router()
 
@@ -9,11 +9,9 @@ tasksRoutes.post('/', async (req: Request, res: Response, next: NextFunction) =>
 
   try {
     await taskContainer.createTask.run(task)
-    success(res, 'Success', 201)
+    response.success(res, 'Success', 201)
   } catch (err) {
-    if (err instanceof Error) {
-      next(err)
-    }
+    next(err)
   }
 })
 

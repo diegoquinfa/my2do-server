@@ -1,7 +1,7 @@
 import { ResponseError } from '@/shared/ResponseError'
 
-export class ValidationError extends ResponseError {
+export class NotFoundError extends ResponseError {
   constructor(public readonly details: unknown) {
-    super('Validation failed', 400)
+    super('Not Found', 404)
   }
 }
