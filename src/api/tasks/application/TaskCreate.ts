@@ -1,7 +1,7 @@
 import { ValidationError } from '@/shared/application/errors/ValidationError'
-import { DatabaseError } from '@/shared/application/errors/DatabaseError'
 import { TaskSchema } from '../domain/Task'
 import { ITasksRepository } from '../domain/ITasksRepository'
+import { DatabaseError } from '@/shared/infrastructure/errors/DatabaseError'
 
 export class TaskCreate {
   private readonly tasksRepository: ITasksRepository

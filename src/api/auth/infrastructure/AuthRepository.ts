@@ -4,8 +4,23 @@ import { User } from '../domain/User'
 import { errorHandler } from '@/lib/errorHandler'
 import { DatabaseError } from '@/shared/infrastructure/errors/DatabaseError'
 import { NotFoundError } from '@/shared/infrastructure/errors/NotFoundError'
+import { sendEmail } from '@/lib/sendEmail'
+import { verifyEmail } from '@/templates/emails/verifyEmail'
 
 export class AuthRepository implements IAuthRepository {
+  async sendEmailVerification(email: string) {
+    try {
+      const subject = 'My2do email verification'
+      const emailRes = await sendEmail(email, subject, verifyEmail(crypto.randomUUID()))
+
+      if (emailRes.error) {
+        throw new Error(emailRes.error.message)
+      }
+    } catch (err) {
+      throw errorHandler(err)
+    }
+  }
+
   async register(newUserData: User): Promise<void> {
     try {
       const collection = await Database.collection<User>('users')

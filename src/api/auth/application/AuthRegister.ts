@@ -18,16 +18,18 @@ export class AuthRegister {
       throw new ValidationError(authRegister.error.flatten())
     }
 
-    const register = authRegister.data
+    const registeredUserData = authRegister.data
 
-    if (await this.repository.existsEmail(register.email)) {
+    if (await this.repository.existsEmail(registeredUserData.email)) {
       throw new ValidationError('Email already exists')
     }
 
-    const hashedPassword = await hash(register.password, await genSalt(10))
+    await this.repository.sendEmailVerification(registeredUserData.email)
+
+    const hashedPassword = await hash(registeredUserData.password, await genSalt(10))
 
     const newUser = userSchema.safeParse({
-      ...register,
+      ...registeredUserData,
       password: hashedPassword,
       createdAt: new Date()
     })
