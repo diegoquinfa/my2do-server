@@ -1,9 +1,8 @@
-import jwt from 'jsonwebtoken'
 import { ValidationError } from '@/shared/application/errors/ValidationError'
 import { authLoginSchema } from '../domain/AuthLogin'
 import { IAuthRepository } from '../domain/IAuthRepository'
 import { AuthLoginResponse } from '../domain/AuthLoginResponse'
-import { ENV } from '@/lib/env'
+import { jwt } from '@/lib/jtw'
 
 export class AuthLogin {
   private readonly repository: IAuthRepository
@@ -25,7 +24,7 @@ export class AuthLogin {
       throw new ValidationError({ message: "User or Password don't match" })
     }
 
-    const token = jwt.sign({ name: user.name, email: user.email }, ENV.JWT_SECRET)
+    const token = jwt.createJWT({ name: user.name, email: user.email })
 
     const authResponse: AuthLoginResponse = {
       _id: user._id?.toString(),
