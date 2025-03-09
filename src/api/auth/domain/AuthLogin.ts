@@ -1,10 +1,10 @@
 import { z } from 'zod'
-import { userEmailSchema } from './User'
 import { AuthPasswordSchema } from './AuthRegister'
+import { UserEmailSchema } from '@/shared/domain/User'
 
-export const authLoginSchema = z.object({
-  email: userEmailSchema,
+export const AuthLoginSchema = z.object({
+  email: UserEmailSchema,
   password: AuthPasswordSchema
 })
 
-export type AuthLogin = z.infer<typeof authLoginSchema>
+export type AuthLogin = z.infer<typeof AuthLoginSchema>

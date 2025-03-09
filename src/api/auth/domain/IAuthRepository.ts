@@ -1,8 +1,7 @@
-import { User } from './User'
+import { User } from '@/shared/domain/User'
 
 export interface IAuthRepository {
   sendEmailVerification(email: string): Promise<void>
   register(user: User): Promise<void>
-  existsEmail(email: string): Promise<boolean>
-  getUserByEmail(email: string): Promise<User>
+  getUserByEmail(email: string): Promise<User | null>
 }

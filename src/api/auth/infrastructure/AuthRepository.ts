@@ -1,11 +1,10 @@
 import { Database } from '@/database/mongo'
 import { IAuthRepository } from '../domain/IAuthRepository'
-import { User } from '../domain/User'
 import { errorHandler } from '@/lib/errorHandler'
 import { DatabaseError } from '@/shared/infrastructure/errors/DatabaseError'
-import { NotFoundError } from '@/shared/infrastructure/errors/NotFoundError'
 import { sendEmail } from '@/lib/sendEmail'
 import { verifyEmail } from '@/templates/emails/verifyEmail'
+import { User } from '@/shared/domain/User'
 
 export class AuthRepository implements IAuthRepository {
   async sendEmailVerification(email: string) {
@@ -30,33 +29,12 @@ export class AuthRepository implements IAuthRepository {
     }
   }
 
-  async existsEmail(email: string): Promise<boolean> {
-    let user: User | null = null
-
+  async getUserByEmail(email: string): Promise<User | null> {
     try {
       const collection = await Database.collection<User>('users')
-      user = await collection.findOne({ email })
+      return await collection.findOne({ email })
     } catch (err) {
       throw errorHandler(err, DatabaseError)
     }
-
-    return Boolean(user)
-  }
-
-  async getUserByEmail(email: string): Promise<User> {
-    let user: User | null = null
-
-    try {
-      const collection = await Database.collection<User>('users')
-      user = await collection.findOne({ email })
-    } catch (err) {
-      throw errorHandler(err, DatabaseError)
-    }
-
-    if (!user) {
-      throw new NotFoundError('User not found')
-    }
-
-    return user
   }
 }

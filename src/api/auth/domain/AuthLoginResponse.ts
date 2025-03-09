@@ -1,13 +1,11 @@
+import { UserSchema } from '@/shared/domain/User'
 import { z } from 'zod'
-import { userSchema } from './User'
 
-export const authLoginResponseSchema = userSchema
-  .extend({
-    jwt: z.string()
-  })
-  .omit({
-    password: true,
-    createdAt: true
-  })
+export const AuthLoginResponseSchema = UserSchema.extend({
+  jwt: z.string()
+}).omit({
+  password: true,
+  createdAt: true
+})
 
-export type AuthLoginResponse = z.infer<typeof authLoginResponseSchema>
+export type AuthLoginResponse = z.infer<typeof AuthLoginResponseSchema>

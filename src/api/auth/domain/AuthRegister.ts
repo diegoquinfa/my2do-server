@@ -1,5 +1,5 @@
+import { UserEmailSchema, UserNameSchema } from '@/shared/domain/User'
 import { z } from 'zod'
-import { userEmailSchema, userNameSchema } from './User'
 
 export const AuthPasswordSchema = z
   .string({ required_error: 'Password is required' })
@@ -12,8 +12,8 @@ export const AuthPasswordSchema = z
 
 export const authRegisterSchema = z
   .object({
-    name: userNameSchema,
-    email: userEmailSchema,
+    name: UserNameSchema,
+    email: UserEmailSchema,
     password: AuthPasswordSchema,
     confirmPassword: z.string({
       required_error: 'Confirm password is required'
