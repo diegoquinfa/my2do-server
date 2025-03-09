@@ -26,7 +26,7 @@ export const authorization = (req: Request, res: Response, next: NextFunction) =
       return
     }
 
-    req.query.authUserData = payload
+    req.query.authUser = payload
 
     next()
   }

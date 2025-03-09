@@ -1,7 +1,8 @@
+import { zodObjectId } from '@/shared/domain/zodObjectId'
 import { z } from 'zod'
 
 export const TaskSchema = z.object({
-  userId: z.object({}),
+  userId: zodObjectId.optional(),
   title: z.string({ message: "The value 'title' is required." }).min(1),
   description: z
     .string({ message: "The value 'description' description is required." })

@@ -30,7 +30,7 @@ export class AuthLogin {
       throw new ValidationError("User or Password don't match")
     }
 
-    const token = jwt.createJWT({ id: user._id, name: user.name, email: user.email })
+    const token = jwt.createJWT({ _id: user._id, name: user.name, email: user.email })
     console.log('Created token:', token)
 
     const authResponse: AuthLoginResponse = {

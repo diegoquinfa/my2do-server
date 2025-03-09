@@ -11,16 +11,18 @@ export class TaskCreate {
     this.tasksRepository = tasksRepository
   }
 
-  public async run(taskData: unknown, userAuthData: unknown): Promise<void> {
-    const task = TaskSchema.safeParse(taskData)
-    const user = AuthUserSchema.safeParse(userAuthData)
-
-    if (!task.success) {
-      throw new ValidationError(task.error.flatten())
-    }
+  public async run(taskData: unknown, authUserData: unknown): Promise<void> {
+    console.log(authUserData)
+    const user = AuthUserSchema.safeParse(authUserData)
 
     if (!user.success) {
       throw new ValidationError(user.error.flatten())
+    }
+
+    const task = TaskSchema.safeParse(taskData)
+
+    if (!task.success) {
+      throw new ValidationError(task.error.flatten())
     }
 
     try {
