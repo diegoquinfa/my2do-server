@@ -25,8 +25,8 @@ export class AuthLogin {
       throw new ValidationError("User or Password don't match")
     }
 
-    const isPasswordValid = await compare(authLogin.data.password, user.password)
-    if (!isPasswordValid) {
+    const isValidPassword = await compare(authLogin.data.password, user.password)
+    if (!isValidPassword) {
       throw new ValidationError("User or Password don't match")
     }
 
