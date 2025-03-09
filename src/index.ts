@@ -10,12 +10,12 @@ import { loggerMiddleware } from './middlewares/loggerMiddleware'
 
 const app = express()
 
+app.use(loggerMiddleware)
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(helmet())
 app.use(cors())
 app.use(cookieParser())
-app.use(loggerMiddleware)
 
 app.use('/api/v1', api())
 
