@@ -1,7 +1,6 @@
 import { NextFunction, Request, Response, Router } from 'express'
 import { authContainer } from './authContainer'
 import { response } from '@/network/response'
-import { ENV } from '@/lib/env'
 
 const authRoutes = Router()
 
@@ -22,14 +21,7 @@ authRoutes.post('/login', async (req: Request, res: Response, next: NextFunction
   try {
     const loginResponse = await authContainer.login.run(login)
 
-    res.cookie('auth', `Bearer ${loginResponse.jwt}`, {
-      expires: new Date(Date.now() + 3600000),
-      httpOnly: true,
-      secure: ENV.NODE_ENV === 'production',
-      sameSite: 'lax'
-    })
-
-    response.success(res, 'User successfully logged', 200, { ...loginResponse, jwt: undefined })
+    response.success(res, 'User successfully logged', 200, loginResponse)
   } catch (err) {
     next(err)
   }
