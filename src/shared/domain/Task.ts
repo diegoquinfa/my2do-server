@@ -4,10 +4,7 @@ import { z } from 'zod'
 export const TaskSchema = z.object({
   userId: zodObjectId,
   title: z.string({ message: "The value 'title' is required." }).min(1),
-  description: z
-    .string({ message: "The value 'description' description is required." })
-    .nonempty()
-    .min(1),
+  description: z.string({ message: "The value 'description' must be a string." }).optional(),
   repeat: z
     .enum(['anytime', 'daily', 'weekly', 'yearly'], {
       errorMap: () => ({
