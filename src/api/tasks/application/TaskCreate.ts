@@ -12,7 +12,6 @@ export class TaskCreate {
   }
 
   public async run(taskData: unknown, authUserData: unknown): Promise<void> {
-    console.log(authUserData)
     const user = AuthUserSchema.safeParse(authUserData)
 
     if (!user.success) {

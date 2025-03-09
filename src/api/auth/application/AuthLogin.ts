@@ -31,7 +31,6 @@ export class AuthLogin {
     }
 
     const token = jwt.createJWT({ _id: user._id, name: user.name, email: user.email })
-    console.log('Created token:', token)
 
     const authResponse: AuthLoginResponse = {
       _id: user._id?.toString(),
