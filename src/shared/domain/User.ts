@@ -1,4 +1,5 @@
 import { z } from 'zod'
+import { zodObjectId } from './zodObjectId'
 
 export const UserNameSchema = z
   .string({ required_error: 'Name is required' })
@@ -10,7 +11,7 @@ export const UserEmailSchema = z
   .email('Email address is not valid')
 
 export const UserSchema = z.object({
-  _id: z.string().optional(),
+  _id: zodObjectId,
   name: UserNameSchema,
   email: UserEmailSchema,
   password: z.string(),

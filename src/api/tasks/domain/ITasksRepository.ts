@@ -1,5 +1,5 @@
-import { Task } from './Task'
+import { TaskSubmit } from './TaskSubmit'
 
 export interface ITasksRepository {
-  save(task: Task, userAuthData: string): Promise<void>
+  save(task: TaskSubmit, userAuthData: string): Promise<void>
 }

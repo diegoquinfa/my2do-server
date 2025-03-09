@@ -1,8 +1,8 @@
 import { ValidationError } from '@/shared/application/errors/ValidationError'
-import { TaskSchema } from '../domain/Task'
-import { ITasksRepository } from '../domain/ITasksRepository'
 import { DatabaseError } from '@/shared/infrastructure/errors/DatabaseError'
 import { AuthUserSchema } from '@/shared/domain/AuthUser'
+import { ITasksRepository } from '../domain/ITasksRepository'
+import { TaskSubmitSchema } from '../domain/TaskSubmit'
 
 export class TaskCreate {
   private readonly tasksRepository: ITasksRepository
@@ -19,7 +19,7 @@ export class TaskCreate {
       throw new ValidationError(user.error.flatten())
     }
 
-    const task = TaskSchema.safeParse(taskData)
+    const task = TaskSubmitSchema.safeParse(taskData)
 
     if (!task.success) {
       throw new ValidationError(task.error.flatten())
