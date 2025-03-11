@@ -24,8 +24,6 @@ export class AuthRegister {
       throw new ValidationError('Email already exists')
     }
 
-    await this.repository.sendEmailVerification(registeredUserData.email)
-
     const hashedPassword = await hash(registeredUserData.password, await genSalt(10))
 
     const newUser = UserSchema.safeParse({
@@ -38,6 +36,7 @@ export class AuthRegister {
       throw new ValidationError(newUser.error.flatten())
     }
 
+    await this.repository.sendEmailVerification(registeredUserData.email)
     await this.repository.register(newUser.data)
   }
 }

@@ -11,7 +11,8 @@ export const UserEmailSchema = z
   .email('Email address is not valid')
 
 export const UserSchema = z.object({
-  _id: zodObjectId,
+  // TODO: Make a new schema for AuthRegister
+  _id: zodObjectId.optional(),
   name: UserNameSchema,
   email: UserEmailSchema,
   password: z.string(),
